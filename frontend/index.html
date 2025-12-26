@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMG Muse</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>M</text></svg>">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-section">
+                    <div class="logo-row">
+                        <span class="sparkle-icon">✦</span>
+                        <span class="muse-text">FMG Muse</span>
+                        <span class="beta-badge">BETA</span>
+                    </div>
+                </div>
+                <button class="new-chat-btn" id="new-chat-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    New Chat
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <div class="chat-history-list" id="chat-history-list">
+                    <!-- Chat history items will be added dynamically -->
+                </div>
+                <p class="sidebar-hint" id="sidebar-hint">Your email conversations will appear here</p>
+            </div>
+            <div class="model-selector-container">
+                <label class="model-selector-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    AI Model
+                </label>
+                <select class="model-select" id="model-select">
+                    <option value="openai/gpt-4o">OpenAI</option>
+                </select>
+            </div>
+            <div class="sidebar-footer">
+                <p class="powered-by">Powered by FMG Suite</p>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+            <!-- Chat Header -->
+            <header class="chat-header">
+                <h1>Muse</h1>
+                <p>Your AI Email Writing Assistant</p>
+            </header>
+
+            <!-- Form Phase - Initial Input -->
+            <div class="form-phase" id="form-phase">
+                <div class="form-container">
+                    <div class="form-header">
+                        <div class="form-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <h2>Let's craft your perfect email</h2>
+                        <p>Fill in the details below</p>
+                    </div>
+
+                    <form id="email-form" class="email-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="purpose-select">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M12 16v-4"></path>
+                                        <path d="M12 8h.01"></path>
+                                    </svg>
+                                    Purpose
+                                </label>
+                                <select id="purpose-select" required>
+                                    <option value="">Select email purpose...</option>
+                                    <option value="relationship_builder">Relationship Builder</option>
+                                    <option value="educational_content">Educational Content</option>
+                                    <option value="follow_up">Follow-up</option>
+                                    <option value="feedback_request">Feedback Request</option>
+                                    <option value="scheduling">Scheduling</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tone-select">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path>
+                                        <path d="M8.5 8.5v.01"></path>
+                                        <path d="M16 15.5v.01"></path>
+                                        <path d="M12 12v.01"></path>
+                                    </svg>
+                                    Tone
+                                </label>
+                                <select id="tone-select" required>
+                                    <option value="professional" selected>Professional</option>
+                                    <option value="formal">Formal</option>
+                                    <option value="friendly">Friendly</option>
+                                    <option value="casual">Casual</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group length-group">
+                                <label>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="21" y1="10" x2="3" y2="10"></line>
+                                        <line x1="21" y1="6" x2="3" y2="6"></line>
+                                        <line x1="21" y1="14" x2="3" y2="14"></line>
+                                        <line x1="21" y1="18" x2="3" y2="18"></line>
+                                    </svg>
+                                    Length
+                                </label>
+                                <div class="length-options">
+                                    <label class="length-option">
+                                        <input type="radio" name="length" value="short">
+                                        <span class="length-btn">
+                                            Short
+                                            <span class="length-word-count">~50-100 words</span>
+                                        </span>
+                                    </label>
+                                    <label class="length-option">
+                                        <input type="radio" name="length" value="medium" checked>
+                                        <span class="length-btn">
+                                            Medium
+                                            <span class="length-word-count">~100-200 words</span>
+                                        </span>
+                                    </label>
+                                    <label class="length-option">
+                                        <input type="radio" name="length" value="long">
+                                        <span class="length-btn">
+                                            Long
+                                            <span class="length-word-count">~200-400 words</span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group details-group">
+                            <label for="details-input">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                                Enter specific details
+                            </label>
+                            <textarea
+                                id="details-input"
+                                placeholder="Describe the context, recipient, and key points you want to include..."
+                                rows="4"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" class="generate-btn" id="generate-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                            Generate Email
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Chat Phase -->
+            <div class="chat-phase" id="chat-phase" hidden>
+                <!-- Messages Container -->
+                <div class="messages-container" id="messages-container">
+                    <!-- Messages will be inserted here -->
+                    <div class="messages" id="messages"></div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div class="input-container">
+                        <textarea
+                            id="message-input"
+                            placeholder="Ask for changes or describe another email..."
+                            rows="1"
+                        ></textarea>
+                        <button class="send-btn" id="send-btn" disabled>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="input-hint">Press Enter to send, Shift+Enter for new line</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Cost Badge -->
+        <div class="cost-badge" id="cost-badge">
+            <span class="cost-label">Cost</span>
+            <span class="cost-value" id="cost-display-value">$0.000000</span>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" hidden>
+        <span id="toast-text"></span>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
